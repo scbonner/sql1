@@ -13,12 +13,12 @@
 
 require 'sqlite3'
 
-if File exists?("maindata.db")
+#lines 17-19 prevents running of file making multiple duplicates
+if File.exists?("maindata.db")
   File.delete("maindata.db")
 end 
 
-
-db. = SQLite3::Database.new("maindata.db")
+db = SQLite3::Database.new("maindata.db")
 
 db.execute <<-SQL
 CREATE TABLE users (
@@ -28,7 +28,16 @@ CREATE TABLE users (
   ); 
 SQL
 
-db.execute ("INSERT INTO users(email) values(?)" ["bob@example.com"])
+db.execute("INSERT INTO users(email, password) values(?, ?);",
+["bob@example.com", "*2268!!mommy"]
+)
+db.execute("INSERT INTO users(email, password) values(?, ?);",
+["mylife@upsidedown.com", "!!12345aBc"]
+)
+db.execute("INSERT INTO users(email, password) values(?, ?);",
+["peacock@imtheone.com", "kl(*)Pp!itscoldoutside"]
+)
 
 rows = db.execute("SELECT * FROM users")
     
+puts rows
