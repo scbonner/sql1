@@ -28,5 +28,7 @@ CREATE TABLE users (
   ); 
 SQL
 
-db.execute ("INSERT INTO users")
+db.execute ("INSERT INTO users(email) values(?)" ["bob@example.com"])
+
+rows = db.execute("SELECT * FROM users")
     
